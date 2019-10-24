@@ -5,6 +5,24 @@
  * Inserts Adobe Launch snippet into <head> section of rendered theme.
  */
 
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function adobe_launch_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the AdobeLaunch module.
+    case 'help.page.adobe_launch':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides the functionality to inject the Adobe Launch javascript snippet in the head section of your rendered site') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
 /**
  * Implements hook_preprocess_HOOK() for html.html.twig.
  */
