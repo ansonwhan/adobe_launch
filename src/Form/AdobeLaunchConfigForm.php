@@ -80,7 +80,7 @@ class AdobeLaunchConfigForm extends ConfigFormBase {
     $form['settings']['adobe-launch-service']['adobe-launch-enable'] = [
       '#type'          => 'checkbox',
       '#title'         => $this->t('Enable Adobe Launch'),
-      '#description'   => $this->t('Will enable the Adobe Launch Tag Management script.'),
+      '#description'   => $this->t('Will enable the Adobe Launch Tag Management script insertion on the site based on the Path rules defined below and if the environment url is defined.'),
       '#default_value' => $config->get('adobe-launch-enable'),
     ];
 
@@ -109,20 +109,20 @@ class AdobeLaunchConfigForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Load asynchronously?'),
       '#default_value' => $config->get('adobe-launch-async'),
-      '#description' => $this->t('Check to load Adobe Launch script asynchronously'),
+      '#description' => $this->t('Check to load Adobe Launch script asynchronously (recommend: checked)'),
     ];
     $form['settings']['adobe-launch-service']['adobe-launch-prod-url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Adobe Launch "Production Url"'),
       '#default_value' => $config->get('adobe-launch-prod-url'),
-      '#description' => $this->t('This should be a protocol agnostic url to the production version of the Adobe Launch js library, such as //assets.adobedtm.com/launch-ENdbed25ec8b6e40d9af6f297d3949e512.min.js
+      '#description' => $this->t('This should be a protocol agnostic url to the production version of the Adobe Launch js library, such as //assets.adobedtm.com/launch-randomIdentifierString1.min.js
       '),
     ];
     $form['settings']['adobe-launch-service']['adobe-launch-staging-url'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Adobe Launch "Staging Url"'),
       '#default_value' => $config->get('adobe-launch-staging-url'),
-      '#description' => $this->t('This should be a protocol agnostic url to the staging version of the Adobe Launch js library, such as //assets.adobedtm.com/launch-EN906f77a9d1c94d13be32789bfa4cdbe5-staging.min.js'),
+      '#description' => $this->t('This should be a protocol agnostic url to the staging version of the Adobe Launch js library, such as //assets.adobedtm.com/launch-randomIdentifierString2-staging.min.js'),
     ];
     $form['settings']['adobe-launch-service']['adobe-launch-registrant'] = [
       '#type' => 'textfield',
