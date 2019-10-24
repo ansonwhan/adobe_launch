@@ -1,0 +1,14 @@
+{
+    "name": "drupal/adobe_launch",
+    "description": "Adobe_Launch module for Drupal adds support for backend configuration of prod/staging Adobe Launch snippet urls, what paths to include or exclude the snippet on your rendered site without the need to manually edit/adjust the code in your theme's html.html.twig template.",
+    "type": "drupal-module",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Anson W Han",
+            "email": "ansonwhan+drupal@live.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
