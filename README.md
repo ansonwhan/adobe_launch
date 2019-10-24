@@ -44,3 +44,5 @@ From here, you can:
 8. List paths to exclude or include Adobe Launch snippet on (defaults to a list of known admin paths for excluding)
 9. Set whether the path list is to be treated as an inclusion list or exclusion list.
 
+
+![Example screenshot of the configuration page](adobe-launch-config-screenshot.png)
