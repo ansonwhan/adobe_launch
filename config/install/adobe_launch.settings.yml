@@ -1,0 +1,9 @@
+adobe-launch-enable: 0
+target-adobe-launch-environment: staging
+adobe-launch-async: 1
+init-js-array: 1
+adobe-launch-prod-url: ''
+adobe-launch-staging-url: ''
+adobe-launch-registrant: ''
+paths: "/admin\r\n/admin/*\r\n/node/*/edit"
+paths_negate: '1'
