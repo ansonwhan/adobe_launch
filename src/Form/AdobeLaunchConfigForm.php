@@ -21,6 +21,13 @@ class AdobeLaunchConfigForm extends ConfigFormBase {
   protected $pathValidator;
 
   /**
+   * The ConfigFactory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs an AdobeLaunchConfigForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
@@ -31,6 +38,7 @@ class AdobeLaunchConfigForm extends ConfigFormBase {
   public function __construct(ConfigFactoryInterface $config_factory, PathValidatorInterface $path_validator) {
     parent::__construct($config_factory);
     $this->pathValidator = $path_validator;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -63,7 +71,7 @@ class AdobeLaunchConfigForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = \Drupal::configFactory()->getEditable('adobe_launch.settings');
+    $config = $this->configFactory->getEditable('adobe_launch.settings');
 
     // Adobe Launch Settings.
     $form['settings']['adobe-launch-service'] = [
@@ -197,7 +205,7 @@ class AdobeLaunchConfigForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    $config = \Drupal::configFactory()->getEditable('adobe_launch.settings');
+    $config = $this->configFactory->getEditable('adobe_launch.settings');
 
     $config
       ->set('adobe-launch-enable', $form_state->getValue('adobe-launch-enable'))
