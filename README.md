@@ -17,14 +17,9 @@ The AdobeLaunch module leverages Drupal Core's built-in functions and services. 
 
 ### What is AdobeLaunch?
 
-Adobe has two tag management services: Adobe Launch (released in March 2018) and Adobe Dynamic Tag Manager (DTM) (earmarked to be sunset in 2020). Adobe Launch is part of Adobe's Experience Platform enterprise product line.
+Adobe Launch is part of Adobe's Experience Platform enterprise product line and was released in March 2018 as the replacement for Adobe Dynamic Tag Manager (DTM) which is earmarked to be sunset in 2020.
 
 [Learn more about Adobe Launch](https://www.adobe.com/experience-platform/launch.html).
-
-### How does the AdobeLaunch Module (for Drupal) differ from AdobeDTM Module?
-
-The AdobeDTM Module has a patch for Adobe Launch support, but does not allow for toggling between staging and production Adobe Launch snippets; nor does it include the javascript array initializer for the DTM object used by Adobe Launch. This module allows site admins to add AdobeLaunch support through the administrative backend of Drupal without the need to manually edit and push theme code or other modules to support AdobeLaunch.
-
 
 ### Using AdobeLaunch (for Drupal)
 
