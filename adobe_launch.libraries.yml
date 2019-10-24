@@ -1,0 +1,4 @@
+adobe_launch:
+  header: true
+  js:
+    js/adobe_launch_dtm_init.js: { preprocess: false }

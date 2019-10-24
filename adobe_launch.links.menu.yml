@@ -1,0 +1,6 @@
+adobe_launch.admin_settings_form:
+  title: 'Adobe Launch Snippet Configuration'
+  route_name: adobe_launch.config
+  description: 'Admin settings page for adobe_launch module'
+  parent: system.admin_config_services
+  weight: 99

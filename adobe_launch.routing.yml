@@ -1,0 +1,10 @@
+adobe_launch.config:
+  path: '/admin/config/services/adobe_launch/configure'
+  defaults:
+    _form: '\Drupal\adobe_launch\Form\AdobeLaunchConfigForm'
+    _title: 'Adobe Launch Snippet Configuration'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
+    no_cache: TRUE

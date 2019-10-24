@@ -1,0 +1,9 @@
+name: 'Adobe Launch Snippet Manager'
+type: module
+description: "Adds configurable Adobe Launch snippet into the &lt;head&gt; tag of the rendered theme."
+core: 8.x
+package: 'Statistics'
+configure: adobe_dtm.settings_form
+
+version: '8.x-1.1'
+project: 'adobe_launch'

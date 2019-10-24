@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * @file
+ * Inserts Adobe Launch snippet into <head> section of rendered theme.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK() for html.html.twig.
+ */
+function adobe_launch_preprocess_html(array &$variables) {
+  $config = \Drupal::configFactory()->getEditable('adobe_launch.settings');
+  $enabled = $config->get('adobe-launch-enable');
+
+  // If Adobe Launch is disabled or the path check returns FALSE, return.
+  if (!$enabled || !_adobe_launch_path_check()) {
+    return FALSE;
+  }
+
+  // Generate Adobe Launch snippet injection and insert in html <head> tag.
+  if ($enabled == 1) {
+    if ($config->get('adobe-launch-prod-url') != NULL || $config->get('adobe-launch-staging-url') != NULL) {
+      if ($config->get('target-adobe-launch-environment') == 'prod') {
+        $adobeLaunchPath = $config->get('adobe-launch-prod-url');
+      }
+      else {
+        $adobeLaunchPath = $config->get('adobe-launch-staging-url');
+      }
+      if ($config->get('adobe-launch-async') == 1) {
+        $adobeLaunchSnippet = [
+          '#tag' => 'script',
+          '#attributes' => [
+            'src' => $adobeLaunchPath,
+            'type' => 'text/javascript',
+            'async' => TRUE,
+          ],
+        ];
+      }
+      else {
+        $adobeLaunchSnippet = [
+          '#tag' => 'script',
+          '#attributes' => [
+            'src' => $adobeLaunchPath,
+            'type' => 'text/javascript',
+          ],
+        ];
+      }
+      $variables['page']['#attached']['html_head'][] = [$adobeLaunchSnippet, 'adobeLaunchSnippet'];
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function adobe_launch_preprocess_page(&$variables) {
+  $config = \Drupal::configFactory()->getEditable('adobe_launch.settings');
+  $enabled = $config->get('adobe-launch-enable');
+
+  // If Adobe Launch is disabled or the path check returns FALSE, return.
+  if (!$enabled || !_adobe_launch_path_check()) {
+    return FALSE;
+  }
+
+  if (($enabled == 1)  && ($config->get('init-js-array') == 1)) {
+    $variables['#attached']['library'][] = 'adobe_launch/adobe_launch';
+  }
+
+}
+
+/**
+ * Determines whether to inject Adobe Launch, based on path settings.
+ *
+ * @return bool
+ *   TRUE if Adobe Launch may be executed on the current path, otherwise FALSE.
+ */
+function _adobe_launch_path_check() {
+  static $result;
+
+  if (!isset($result)) {
+    $config = \Drupal::config('adobe_launch.settings');
+    $paths_negate = $config->get('paths_negate');
+    $paths = $config->get('paths');
+    $paths = str_replace("\n\n", "\n", $paths);
+    if ($paths_negate === 1 && empty($paths)) {
+      $result = TRUE;
+    }
+    else {
+      $request = \Drupal::request();
+      $alias_manager = \Drupal::service('path.alias_manager');
+      $current_path = \Drupal::service('path.current');
+      $path_matcher = \Drupal::service('path.matcher');
+
+      // Compare the lowercase path alias (if any) and internal path.
+      $path = $current_path->getPath($request);
+      $path_alias = mb_strtolower($alias_manager->getAliasByPath($path));
+      $result = $path_matcher->matchPath($path_alias, $paths) || (($path != $path_alias) && $path_matcher->matchPath($path, $paths));
+
+      // In case we're going to exclude, negate the result value.
+      if ($paths_negate == 1) {
+        if ($result) {
+          $result = 0;
+        }
+        else {
+          $result = 1;
+        }
+      }
+
+    }
+
+    // Allow other modules to alter the patch check.
+    \Drupal::moduleHandler()->alter('adobe_launch_path_check', $result);
+  }
+
+  return $result;
+}
